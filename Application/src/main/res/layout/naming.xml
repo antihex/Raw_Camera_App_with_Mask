@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/usrSessionID"
+        android:layout_width="115sp"
+        android:layout_height="48dp"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/subId5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toEndOf="@+id/subId5"
+        app:layout_constraintTop_toTopOf="@+id/subId5"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/subId5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Session ID:"
+        android:textAllCaps="false"
+        android:textSize="35sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subId3" />
+
+    <EditText
+        android:id="@+id/usrSpoofType"
+        android:layout_width="115sp"
+        android:layout_height="48dp"
+        android:text="null"
+        app:layout_constraintBottom_toBottomOf="@+id/subId3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.234"
+        app:layout_constraintStart_toEndOf="@+id/subId3"
+        app:layout_constraintTop_toTopOf="@+id/subId3"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/subId3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Spoof Type:"
+        android:textAllCaps="false"
+        android:textSize="35sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subId2" />
+
+    <RadioGroup
+        android:id="@+id/liveSpoofGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/subId2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/subId"
+        app:layout_constraintTop_toTopOf="@+id/subId2">
+
+        <RadioButton
+            android:id="@+id/live"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:minHeight="55dp"
+            android:text="Live"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <RadioButton
+            android:id="@+id/spoof"
+            android:layout_width="81dp"
+            android:layout_height="wrap_content"
+            android:minHeight="55dp"
+            android:text="Spoof"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/subId"
+            app:layout_constraintTop_toBottomOf="@+id/usrSubId" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/subId2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Live/Spoof:"
+        android:textAllCaps="false"
+        android:textSize="35sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subId" />
+
+    <TextView
+        android:id="@+id/subId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:text="R/L Hand:"
+        android:textAllCaps="false"
+        android:textSize="35sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SubId" />
+
+    <EditText
+        android:id="@+id/usrSubId"
+        android:layout_width="115sp"
+        android:layout_height="48dp"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/SubId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.108"
+        app:layout_constraintStart_toEndOf="@+id/SubId"
+        app:layout_constraintTop_toTopOf="@+id/SubId"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/SubId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Sub ID:"
+        android:textAllCaps="false"
+        android:textSize="35sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/leftRightGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/subId"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/subId"
+        app:layout_constraintTop_toBottomOf="@+id/usrSubId">
+
+        <RadioButton
+            android:id="@+id/left"
+            android:layout_width="74dp"
+            android:layout_height="wrap_content"
+            android:minHeight="55dp"
+            android:text="Left"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <RadioButton
+            android:id="@+id/right"
+            android:layout_width="81dp"
+            android:layout_height="wrap_content"
+            android:minHeight="55dp"
+            android:text="Right"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/subId"
+            app:layout_constraintTop_toBottomOf="@+id/usrSubId" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="275dp"
+        android:layout_height="121dp"
+        android:text="Next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/usrSessionID"
+        app:layout_constraintVertical_bias="0.724" />
+</android.support.constraint.ConstraintLayout>
