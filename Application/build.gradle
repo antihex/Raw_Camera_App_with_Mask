@@ -1,12 +1,12 @@
 
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
         google()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:4.2.2'
     }
 }
 
@@ -18,6 +18,8 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support:design:27.0.2'
     compile "com.android.support:support-v4:27.0.2"
     compile "com.android.support:support-v13:27.0.2"
     compile "com.android.support:cardview-v7:27.0.2"
