@@ -48,6 +48,7 @@ import android.media.ImageReader;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -513,13 +514,33 @@ public class Camera2RawFragment extends Fragment
         public void onCaptureStarted(CameraCaptureSession session, CaptureRequest request,
                                      long timestamp, long frameNumber) {
             String currentDateTime = generateTimestamp();
-            File rawFile = new File(Environment.
-                    getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
-                    "RAW_" + currentDateTime + ".dng");
-            File jpegFile = new File(Environment.
-                    getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
-                    "JPEG_" + currentDateTime + ".jpg");
 
+            String sub_ID = CameraActivity.getSub_ID();
+            String hand = CameraActivity.getHand();
+            String spoof = CameraActivity.getSpoof();
+            String spoof_type = CameraActivity.getSpoof_type();
+            String sess_ID = CameraActivity.getSession_ID();
+            String device_name = getDeviceName();
+
+            File rawFile;
+            File jpegFile;
+
+            if (spoof_type == null) {
+                rawFile = new File(Environment.
+                        getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
+                        "RAW_" + sub_ID + "_" + hand + "_" + spoof + "_" + sess_ID + "_" + device_name + ".dng");
+                jpegFile = new File(Environment.
+                        getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
+                        "JPEG_" + sub_ID + "_" + hand + "_" + spoof + "_" + sess_ID + "_" + device_name + ".jpg");
+            }
+            else{
+                rawFile = new File(Environment.
+                        getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
+                        "RAW_" + sub_ID + "_" + hand + "_" + spoof + "_" + spoof_type + "_" + sess_ID + "_" + device_name + ".dng");
+                jpegFile = new File(Environment.
+                        getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
+                        "JPEG_" + sub_ID + "_" + hand + "_" + spoof + "_" + spoof_type + "_" + sess_ID + "_" + device_name + ".jpg");
+            }
             // Look up the ImageSaverBuilder for this request and update it with the file name
             // based on the capture start time.
             ImageSaver.ImageSaverBuilder jpegBuilder;
@@ -532,6 +553,29 @@ public class Camera2RawFragment extends Fragment
 
             if (jpegBuilder != null) jpegBuilder.setFile(jpegFile);
             if (rawBuilder != null) rawBuilder.setFile(rawFile);
+        }
+
+        public String getDeviceName() {
+            String manufacturer = Build.MANUFACTURER;
+            String model = Build.MODEL;
+            if (model.toLowerCase().startsWith(manufacturer.toLowerCase())) {
+                return capitalize(model);
+            } else {
+                return capitalize(manufacturer) + " " + model;
+            }
+        }
+
+
+        private String capitalize(String s) {
+            if (s == null || s.length() == 0) {
+                return "";
+            }
+            char first = s.charAt(0);
+            if (Character.isUpperCase(first)) {
+                return s;
+            } else {
+                return Character.toUpperCase(first) + s.substring(1);
+            }
         }
 
         @Override
@@ -1160,6 +1204,15 @@ public class Camera2RawFragment extends Fragment
         synchronized (mCameraStateLock) {
             mPendingUserCaptures++;
 
+            Activity activity = getActivity();
+            CameraManager manager = (CameraManager) activity.getSystemService(Context.CAMERA_SERVICE);
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    manager.setTorchMode(mCameraId, true);
+                }
+            } catch (CameraAccessException e) {
+                e.printStackTrace();
+            }
             // If we already triggered a pre-capture sequence, or are in a state where we cannot
             // do this, return immediately.
             if (mState != STATE_PREVIEW) {

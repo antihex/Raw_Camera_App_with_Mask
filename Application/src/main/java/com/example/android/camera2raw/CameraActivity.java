@@ -18,21 +18,155 @@ package com.example.android.camera2raw;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 /**
  * Activity displaying a fragment that implements RAW photo captures.
  */
 public class CameraActivity extends Activity {
+    private static String sub_ID;
+    private static String hand;
+    private static String spoof;
+    private static String spoof_type;
+    private static String session_ID;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camera);
-        if (null == savedInstanceState) {
-            getFragmentManager().beginTransaction()
-                    .replace(R.id.container, Camera2RawFragment.newInstance())
-                    .commit();
-        }
+
+        setContentView(R.layout.naming);
+
+        EditText usr_sub_id = findViewById(R.id.usrSubId);
+        usr_sub_id.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                sub_ID = editable.toString();
+            }
+        });
+
+
+        RadioGroup handGroup = (RadioGroup) findViewById(R.id.leftRightGroup);
+        final RadioButton leftRadio = (RadioButton) findViewById(R.id.leftButton);
+        RadioButton rightRadio = (RadioButton) findViewById(R.id.rightButton);
+
+        handGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (leftRadio.isChecked()){
+                    hand = "L";
+                }
+                else{
+                    hand = "R";
+                }
+            }
+        });
+
+        RadioGroup spoofGroup = (RadioGroup) findViewById(R.id.liveSpoofGroup);
+        final RadioButton liveButton = (RadioButton) findViewById(R.id.live);
+
+        spoofGroup.setOnCheckedChangeListener((new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                if (liveButton.isChecked()){
+                    spoof = "Live";
+                }
+                else{
+                    spoof = "Spoof";
+                }
+            }
+        }));
+
+        EditText usr_spoof_type = findViewById(R.id.usrSpoofType);
+        usr_spoof_type.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                spoof_type = editable.toString();
+            }
+        });
+
+        EditText usr_session_id = findViewById(R.id.usrSessionID);
+        usr_session_id.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                session_ID = editable.toString();
+            }
+        });
+
+
+        Button next_button = findViewById(R.id.nextButton);
+        next_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (spoof == "Live"){
+                    spoof_type = null;
+                }
+                setContentView(R.layout.activity_camera);
+                if (null == savedInstanceState) {
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.container, Camera2RawFragment.newInstance())
+                            .commit();
+                }
+            }
+        });
+
     }
+
+    public static String getSub_ID(){
+        return sub_ID;
+    }
+
+    public static String getHand(){
+        return hand;
+    }
+
+    public static String getSpoof(){
+        return spoof;
+    }
+
+    public static String getSpoof_type(){
+        return spoof_type;
+    }
+
+    public static String getSession_ID(){
+        return session_ID;
+    }
+
 
 }

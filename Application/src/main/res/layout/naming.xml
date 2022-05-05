@@ -9,15 +9,15 @@
         android:layout_width="115sp"
         android:layout_height="48dp"
         android:text="0"
-        app:layout_constraintBottom_toBottomOf="@+id/subId5"
+        app:layout_constraintBottom_toBottomOf="@+id/sess_ID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toEndOf="@+id/subId5"
-        app:layout_constraintTop_toTopOf="@+id/subId5"
+        app:layout_constraintStart_toEndOf="@+id/sess_ID"
+        app:layout_constraintTop_toTopOf="@+id/sess_ID"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/subId5"
+        android:id="@+id/sess_ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -26,22 +26,22 @@
         android:textAllCaps="false"
         android:textSize="35sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subId3" />
+        app:layout_constraintTop_toBottomOf="@+id/spoof_type" />
 
     <EditText
         android:id="@+id/usrSpoofType"
         android:layout_width="115sp"
         android:layout_height="48dp"
         android:text="null"
-        app:layout_constraintBottom_toBottomOf="@+id/subId3"
+        app:layout_constraintBottom_toBottomOf="@+id/spoof_type"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.234"
-        app:layout_constraintStart_toEndOf="@+id/subId3"
-        app:layout_constraintTop_toTopOf="@+id/subId3"
+        app:layout_constraintStart_toEndOf="@+id/spoof_type"
+        app:layout_constraintTop_toTopOf="@+id/spoof_type"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/subId3"
+        android:id="@+id/spoof_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -145,7 +145,7 @@
         app:layout_constraintTop_toBottomOf="@+id/usrSubId">
 
         <RadioButton
-            android:id="@+id/left"
+            android:id="@+id/leftButton"
             android:layout_width="74dp"
             android:layout_height="wrap_content"
             android:minHeight="55dp"
@@ -156,7 +156,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <RadioButton
-            android:id="@+id/right"
+            android:id="@+id/rightButton"
             android:layout_width="81dp"
             android:layout_height="wrap_content"
             android:minHeight="55dp"
