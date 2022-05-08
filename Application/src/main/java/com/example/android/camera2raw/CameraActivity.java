@@ -36,6 +36,8 @@ public class CameraActivity extends Activity {
     private static String spoof;
     private static String spoof_type;
     private static String session_ID;
+    private static String trial_Num;
+    private static String phone_Num;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -129,6 +131,42 @@ public class CameraActivity extends Activity {
             }
         });
 
+        EditText usr_trial_num = findViewById(R.id.usrTrialNum);
+        usr_trial_num.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                trial_Num = editable.toString();
+            }
+        });
+
+        EditText usr_phone_num = findViewById(R.id.usrPhoneNum);
+        usr_trial_num.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                phone_Num = editable.toString();
+            }
+        });
+
 
         Button next_button = findViewById(R.id.nextButton);
         next_button.setOnClickListener(new View.OnClickListener() {
@@ -137,12 +175,15 @@ public class CameraActivity extends Activity {
                 if (spoof == "Live"){
                     spoof_type = null;
                 }
-                setContentView(R.layout.activity_camera);
-                if (null == savedInstanceState) {
-                    getFragmentManager().beginTransaction()
-                            .replace(R.id.container, Camera2RawFragment.newInstance())
-                            .commit();
+                if(sub_ID != null && hand != null && spoof != null && session_ID != null && session_ID != null && trial_Num != null && phone_Num != null && (spoof == "Live" || spoof_type != null) ){
+                    setContentView(R.layout.activity_camera);
+                    if (null == savedInstanceState) {
+                        getFragmentManager().beginTransaction()
+                                .replace(R.id.container, Camera2RawFragment.newInstance())
+                                .commit();
+                    }
                 }
+
             }
         });
 
@@ -166,6 +207,14 @@ public class CameraActivity extends Activity {
 
     public static String getSession_ID(){
         return session_ID;
+    }
+
+    public static String getTrial_Num(){
+        return trial_Num;
+    }
+
+    public static String getPhone_Num(){
+        return phone_Num;
     }
 
 

@@ -94,10 +94,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  * In this example, the lifecycle of a single request to take a photo is:
  * <ul>
  * <li>
- * The user presses the "Picture" button, resulting in a call to {@link #takePicture()}.
+ * The user presses the "Picture" button, resulting in a call to {@link #takePicture(int)}.
  * </li>
  * <li>
- * {@link #takePicture()} initiates a pre-capture sequence that triggers the camera's built-in
+ * {@link #takePicture(int)} initiates a pre-capture sequence that triggers the camera's built-in
  * auto-focus, auto-exposure, and auto-white-balance algorithms (aka. "3A") to run.
  * </li>
  * <li>
@@ -347,6 +347,9 @@ public class Camera2RawFragment extends Fragment
      */
     private long mCaptureTimer;
 
+    //Picture Number
+    private int picture_Num;
+
     //**********************************************************************************************
 
     /**
@@ -521,6 +524,9 @@ public class Camera2RawFragment extends Fragment
             String spoof_type = CameraActivity.getSpoof_type();
             String sess_ID = CameraActivity.getSession_ID();
             String device_name = getDeviceName();
+            String trial_num = CameraActivity.getTrial_Num();
+            String phone_num = CameraActivity.getPhone_Num();
+
 
             File rawFile;
             File jpegFile;
@@ -528,18 +534,18 @@ public class Camera2RawFragment extends Fragment
             if (spoof_type == null) {
                 rawFile = new File(Environment.
                         getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
-                        "RAW_" + sub_ID + "_" + hand + "_" + spoof + "_" + sess_ID + "_" + device_name + ".dng");
+                        "RAW_SUB_" + sub_ID + "_" + hand + "_T" + trial_num + "_P" + picture_Num + "_S" + sess_ID + "_" + device_name + "P#" + phone_num + "_" + spoof + ".dng");
                 jpegFile = new File(Environment.
                         getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
-                        "JPEG_" + sub_ID + "_" + hand + "_" + spoof + "_" + sess_ID + "_" + device_name + ".jpg");
+                        "JPEG_SUB_" + sub_ID + "_" + hand + "_T" + trial_num + "_P" + picture_Num + "_S" + sess_ID + "_" + device_name + "P#" + phone_num + "_" + spoof + ".jpg");
             }
             else{
                 rawFile = new File(Environment.
                         getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
-                        "RAW_" + sub_ID + "_" + hand + "_" + spoof + "_" + spoof_type + "_" + sess_ID + "_" + device_name + ".dng");
+                        "RAW_SUB_" + sub_ID + "_" + hand + "_T" + trial_num + "_P" + picture_Num  + "_S" + sess_ID + "_" + device_name + "P#" + phone_num + "_" + spoof_type + "_" + spoof + ".dng");
                 jpegFile = new File(Environment.
                         getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
-                        "JPEG_" + sub_ID + "_" + hand + "_" + spoof + "_" + spoof_type + "_" + sess_ID + "_" + device_name + ".jpg");
+                        "JPEG_SUB_" + sub_ID + "_" + hand + "_T" + trial_num + "_P" + picture_Num + "_S" + sess_ID + "_" + device_name + "P#" + phone_num + "_" + spoof_type + "_" + spoof + ".jpg");
             }
             // Look up the ImageSaverBuilder for this request and update it with the file name
             // based on the capture start time.
@@ -718,7 +724,9 @@ public class Camera2RawFragment extends Fragment
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.picture: {
-                takePicture();
+                for(int i = 1; i<6; i++) {
+                    takePicture(i);
+                }
                 break;
             }
             case R.id.info: {
@@ -1199,11 +1207,14 @@ public class Camera2RawFragment extends Fragment
      * machine that waits for auto-focus to finish, ending in a "locked" state where the lens is no
      * longer moving, waits for auto-exposure to choose a good exposure value, and waits for
      * auto-white-balance to converge.
+     * @param picNum
      */
-    private void takePicture() {
+    private void takePicture(int picNum) {
         synchronized (mCameraStateLock) {
             mPendingUserCaptures++;
+            setPicNum(picNum);
 
+            //Turns on flash for camera
             Activity activity = getActivity();
             CameraManager manager = (CameraManager) activity.getSystemService(Context.CAMERA_SERVICE);
             try {
@@ -1249,6 +1260,10 @@ public class Camera2RawFragment extends Fragment
                 e.printStackTrace();
             }
         }
+    }
+
+    private void setPicNum(int picNum) {
+        picture_Num = picNum;
     }
 
     /**

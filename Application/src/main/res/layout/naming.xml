@@ -1,13 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/usrPhoneNum"
+        android:layout_width="115sp"
+        android:layout_height="48dp"
+        android:inputType="number"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/trialNum2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintStart_toEndOf="@+id/trialNum2"
+        app:layout_constraintTop_toTopOf="@+id/trialNum2"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <TextView
+        android:id="@+id/trialNum2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Phone #:"
+        android:textAllCaps="false"
+        android:textSize="35sp"
+        app:layout_constraintStart_toStartOf="@+id/sess_ID"
+        app:layout_constraintTop_toBottomOf="@+id/trialNum" />
+
+    <EditText
+        android:id="@+id/usrTrialNum"
+        android:layout_width="115sp"
+        android:layout_height="48dp"
+        android:inputType="number"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/trialNum"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.136"
+        app:layout_constraintStart_toEndOf="@+id/trialNum"
+        app:layout_constraintTop_toTopOf="@+id/trialNum"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/trialNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Trial:"
+        android:textAllCaps="false"
+        android:textSize="35sp"
+        app:layout_constraintStart_toStartOf="@+id/sess_ID"
+        app:layout_constraintTop_toBottomOf="@+id/sess_ID" />
 
     <EditText
         android:id="@+id/usrSessionID"
         android:layout_width="115sp"
         android:layout_height="48dp"
+        android:inputType="number"
         android:text="0"
         app:layout_constraintBottom_toBottomOf="@+id/sess_ID"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="Session ID:"
         android:textAllCaps="false"
         android:textSize="35sp"
@@ -45,7 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="Spoof Type:"
         android:textAllCaps="false"
         android:textSize="35sp"
@@ -90,7 +141,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="Live/Spoof:"
         android:textAllCaps="false"
         android:textSize="35sp"
@@ -102,7 +153,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="R/L Hand:"
         android:textAllCaps="false"
         android:textSize="35sp"
@@ -113,6 +164,7 @@
         android:id="@+id/usrSubId"
         android:layout_width="115sp"
         android:layout_height="48dp"
+        android:inputType="number"
         android:text="0"
         app:layout_constraintBottom_toBottomOf="@+id/SubId"
         app:layout_constraintEnd_toEndOf="parent"
@@ -126,7 +178,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="Sub ID:"
         android:textAllCaps="false"
         android:textSize="35sp"
