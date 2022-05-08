@@ -16,6 +16,8 @@
 
 package com.example.android.camera2raw;
 
+import static android.os.SystemClock.sleep;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -24,6 +26,7 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
@@ -120,7 +123,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  * </ul>
  */
 public class Camera2RawFragment extends Fragment
-        implements View.OnClickListener, FragmentCompat.OnRequestPermissionsResultCallback {
+        implements View.OnClickListener, FragmentCompat.OnRequestPermissionsResultCallback{
+
+
 
     /**
      * Conversion from screen rotation to JPEG orientation.
@@ -237,6 +242,8 @@ public class Camera2RawFragment extends Fragment
      */
     private AutoFitTextureView mTextureView;
 
+
+
     /**
      * An additional thread for running tasks that shouldn't block the UI.  This is used for all
      * callbacks from the {@link CameraDevice} and {@link CameraCaptureSession}s.
@@ -348,7 +355,10 @@ public class Camera2RawFragment extends Fragment
     private long mCaptureTimer;
 
     //Picture Number
-    private int picture_Num;
+    private int picture_Num = 1;
+
+
+
 
     //**********************************************************************************************
 
@@ -531,21 +541,25 @@ public class Camera2RawFragment extends Fragment
             File rawFile;
             File jpegFile;
 
+
+            int picNum = picture_Num;
+            setPicNum(picNum + 1);
+
             if (spoof_type == null) {
                 rawFile = new File(Environment.
                         getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
-                        "RAW_SUB_" + sub_ID + "_" + hand + "_T" + trial_num + "_P" + picture_Num + "_S" + sess_ID + "_" + device_name + "P#" + phone_num + "_" + spoof + ".dng");
+                        "RAW_SUB" + sub_ID + "_" + hand + "_T" + trial_num + "_P" + picNum + "_S" + sess_ID + "_" + device_name + "P#" + phone_num + "_" + spoof + ".dng");
                 jpegFile = new File(Environment.
                         getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
-                        "JPEG_SUB_" + sub_ID + "_" + hand + "_T" + trial_num + "_P" + picture_Num + "_S" + sess_ID + "_" + device_name + "P#" + phone_num + "_" + spoof + ".jpg");
+                        "JPEG_SUB" + sub_ID + "_" + hand + "_T" + trial_num + "_P" + picNum + "_S" + sess_ID + "_" + device_name + "P#" + phone_num + "_" + spoof + ".jpg");
             }
             else{
                 rawFile = new File(Environment.
                         getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
-                        "RAW_SUB_" + sub_ID + "_" + hand + "_T" + trial_num + "_P" + picture_Num  + "_S" + sess_ID + "_" + device_name + "P#" + phone_num + "_" + spoof_type + "_" + spoof + ".dng");
+                        "RAW_SUB" + sub_ID + "_" + hand + "_T" + trial_num + "_P" + picNum  + "_S" + sess_ID + "_" + device_name + "P#" + phone_num + "_" + spoof_type + "_" + spoof + ".dng");
                 jpegFile = new File(Environment.
                         getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM),
-                        "JPEG_SUB_" + sub_ID + "_" + hand + "_T" + trial_num + "_P" + picture_Num + "_S" + sess_ID + "_" + device_name + "P#" + phone_num + "_" + spoof_type + "_" + spoof + ".jpg");
+                        "JPEG_SUB" + sub_ID + "_" + hand + "_T" + trial_num + "_P" + picNum + "_S" + sess_ID + "_" + device_name + "P#" + phone_num + "_" + spoof_type + "_" + spoof + ".jpg");
             }
             // Look up the ImageSaverBuilder for this request and update it with the file name
             // based on the capture start time.
@@ -653,14 +667,29 @@ public class Camera2RawFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_camera2_basic, container, false);
+        if (CameraActivity.getHand() == "L"){
+            return inflater.inflate(R.layout.fragment_camera2_basic_left, container, false);
+        }
+        else{
+            return inflater.inflate(R.layout.fragment_camera2_basic_right, container, false);
+        }
+
     }
 
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         view.findViewById(R.id.picture).setOnClickListener(this);
         view.findViewById(R.id.info).setOnClickListener(this);
+
+        if(CameraActivity.getHand() == "L") {
+            view.findViewById(R.id.backButton).setOnClickListener(this);
+        }
+        else {
+            view.findViewById(R.id.backButton2).setOnClickListener(this);
+        }
         mTextureView = (AutoFitTextureView) view.findViewById(R.id.texture);
+
+        //mTextureView.setOpaque(false);
 
         // Setup a new OrientationEventListener.  This is used to handle rotation events like a
         // 180 degree rotation that do not normally trigger a call to onCreate to do view re-layout
@@ -725,8 +754,26 @@ public class Camera2RawFragment extends Fragment
         switch (view.getId()) {
             case R.id.picture: {
                 for(int i = 1; i<6; i++) {
+                    //Turns on flash for camera
+                    Activity activity = getActivity();
+                    CameraManager manager = (CameraManager) activity.getSystemService(Context.CAMERA_SERVICE);
+                    try {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            manager.setTorchMode(mCameraId, true);
+                        }
+                    } catch (CameraAccessException e) {
+                        e.printStackTrace();
+                    }
                     takePicture(i);
+                    sleep(50);
                 }
+                break;
+            }
+            case R.id.backButton:
+            case R.id.backButton2: {
+                Intent i= new Intent(view.getContext(), CameraActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
                 break;
             }
             case R.id.info: {
@@ -1212,18 +1259,8 @@ public class Camera2RawFragment extends Fragment
     private void takePicture(int picNum) {
         synchronized (mCameraStateLock) {
             mPendingUserCaptures++;
-            setPicNum(picNum);
 
-            //Turns on flash for camera
-            Activity activity = getActivity();
-            CameraManager manager = (CameraManager) activity.getSystemService(Context.CAMERA_SERVICE);
-            try {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    manager.setTorchMode(mCameraId, true);
-                }
-            } catch (CameraAccessException e) {
-                e.printStackTrace();
-            }
+
             // If we already triggered a pre-capture sequence, or are in a state where we cannot
             // do this, return immediately.
             if (mState != STATE_PREVIEW) {
