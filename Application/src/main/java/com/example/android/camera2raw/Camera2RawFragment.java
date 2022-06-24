@@ -780,7 +780,7 @@ public class Camera2RawFragment extends Fragment
                 Activity activity = getActivity();
                 if (null != activity) {
                     new AlertDialog.Builder(activity)
-                            .setMessage(R.string.intro_message)
+                            .setMessage(R.string.info)
                             .setPositiveButton(android.R.string.ok, null)
                             .show();
                 }

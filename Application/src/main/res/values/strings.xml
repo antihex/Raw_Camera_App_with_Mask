@@ -17,4 +17,7 @@
     <string name="picture">Picture</string>
     <string name="description_info">Info</string>
     <string name="request_permission">This app needs camera permission.</string>
+    <string name="info">This app was created by Zachary Conger for CITeR at Clarkson University in order to obtain touch-less fingerprint scans</string>
+
+
 </resources>
