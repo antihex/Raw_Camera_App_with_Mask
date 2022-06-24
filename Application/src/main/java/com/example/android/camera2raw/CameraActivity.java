@@ -63,7 +63,7 @@ public class CameraActivity extends Activity {
             }
         });
 
-
+        // Left right hand
         RadioGroup handGroup = (RadioGroup) findViewById(R.id.leftRightGroup);
         final RadioButton leftRadio = (RadioButton) findViewById(R.id.leftButton);
         RadioButton rightRadio = (RadioButton) findViewById(R.id.rightButton);
@@ -80,6 +80,7 @@ public class CameraActivity extends Activity {
             }
         });
 
+        // Spoof / Live
         RadioGroup spoofGroup = (RadioGroup) findViewById(R.id.liveSpoofGroup);
         final RadioButton liveButton = (RadioButton) findViewById(R.id.live);
 
@@ -95,6 +96,7 @@ public class CameraActivity extends Activity {
             }
         }));
 
+        // Spoof Type
         EditText usr_spoof_type = findViewById(R.id.usrSpoofType);
         usr_spoof_type.addTextChangedListener(new TextWatcher() {
             @Override
@@ -113,6 +115,7 @@ public class CameraActivity extends Activity {
             }
         });
 
+        // Session ID
         EditText usr_session_id = findViewById(R.id.usrSessionID);
         usr_session_id.addTextChangedListener(new TextWatcher() {
             @Override
@@ -131,6 +134,7 @@ public class CameraActivity extends Activity {
             }
         });
 
+        // Trial Number
         EditText usr_trial_num = findViewById(R.id.usrTrialNum);
         usr_trial_num.addTextChangedListener(new TextWatcher() {
             @Override
@@ -149,8 +153,9 @@ public class CameraActivity extends Activity {
             }
         });
 
+        // Phone Number (Which phone 1,2,3,4 of the type)
         EditText usr_phone_num = findViewById(R.id.usrPhoneNum);
-        usr_trial_num.addTextChangedListener(new TextWatcher() {
+        usr_phone_num.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -167,7 +172,7 @@ public class CameraActivity extends Activity {
             }
         });
 
-
+        // Go to camera App
         Button next_button = findViewById(R.id.nextButton);
         next_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,6 +194,7 @@ public class CameraActivity extends Activity {
 
     }
 
+    // Getters and Setters
     public static String getSub_ID(){
         return sub_ID;
     }
