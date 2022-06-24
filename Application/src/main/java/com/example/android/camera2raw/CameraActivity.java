@@ -27,6 +27,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+
+//TEST
 /**
  * Activity displaying a fragment that implements RAW photo captures.
  */
